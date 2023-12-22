@@ -214,8 +214,8 @@
   </div>
 </div>
 
-<!-- Modal modifier Note-->
-<div class="modal fade" id="noteEvaluation" tabindex="-1" aria-labelledby="noteEvaluationLabel"
+  <!-- Modal modifier Note-->
+  <div class="modal fade" id="noteEvaluation" tabindex="-1" aria-labelledby="noteEvaluationLabel"
   aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
@@ -224,19 +224,19 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        <div class="row g-3" *ngFor="let item of apprenantByClasse", let i = index>
+        <div class="row g-3" *ngFor="let item of apprenantByClasse; let i=index ">
           <div class="col-md-6">
             <h5>{{ item.prenom + " " + item.nom }}</h5>
           </div>
-          <div class="col-md-6">
-            <input type="text" [(ngModel)]="noteApprenant" value="{{ item.Notes }}">
-          </div>
+          <form>
+            <input type="number" name="note" [(ngModel)]="apprenantByClasse[i].note"  style="width:50px">
+          </form>
         </div>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-danger" data-bs-dismiss="modal">annuler</button>
         <button type="button" class="btn btn-primary" data-bs-dismiss="modal"
-          (click)="onUpdateEvaluation()">Modifier</button>
+          (click)="onAddNote()">Modifier</button>
       </div>
     </div>
   </div>

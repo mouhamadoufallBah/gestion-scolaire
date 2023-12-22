@@ -123,7 +123,7 @@
                     <th class="text-center" scope="row">{{ item.note.idEvaluation }}</th>
                     <td class="text-center">{{ item.evaluation.date }}</td>
                     <td class="text-center">{{  item.evaluation.type  }}</td>
-                    <td class="text-center">{{ item.evaluation.matiereId }}</td>
+                    <td class="text-center">{{ item.evaluation.matiereId | matiereIdToMatiereName: matieres}}</td>
                     <td class="text-center">{{ item.evaluation.semestre }}</td>
                     <td class="text-center">{{ item.note.note }}</td>
                     <td class="text-center">

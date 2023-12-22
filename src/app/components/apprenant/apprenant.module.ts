@@ -10,6 +10,7 @@ import { SidebarComponent } from './layout/sidebar/sidebar.component';
 import { FooterComponent } from './layout/footer/footer.component';
 import { ProfileComponent } from './profile/profile.component';
 import { FormsModule } from '@angular/forms';
+import { SharedModule } from 'src/app/shared/shared.module';
 
 
 @NgModule({
@@ -25,7 +26,8 @@ import { FormsModule } from '@angular/forms';
   imports: [
     CommonModule,
     ApprenantRoutingModule,
-    FormsModule
+    FormsModule,
+    SharedModule
   ]
 })
 export class ApprenantModule { }

@@ -21,11 +21,13 @@ export class AcceuilProfesseurComponent implements OnInit{
 
   ngOnInit(): void {
     this.users = JSON.parse(localStorage.getItem('users') || "");
+ 
     this.professeurs = this.users.filter((user: any) => user.role === 'professeur');
 
     let userOnlineId = JSON.parse(localStorage.getItem('currentUser') || "");
 
     const currentProf = this.professeurs.find((elt: any) => elt.id ==userOnlineId)
+
     this.classesByProf = currentProf.classesId.length;
 
     this.evaluationDb = JSON.parse(localStorage.getItem('evaluations') || "");

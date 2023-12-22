@@ -27,15 +27,15 @@ export class GestionEvaluationComponent implements OnInit {
   classeAdd: string = "";
   matiereAdd: string = "";
 
-    // ngModel update
-    dateUpdate: string = "";
-    typeUpdate: string = "";
-    semetreUpdate: string = "";
-    classeUpdate: string = "";
-    matiereUpdate: string = "";
+  // ngModel update
+  dateUpdate: string = "";
+  typeUpdate: string = "";
+  semetreUpdate: string = "";
+  classeUpdate: string = "";
+  matiereUpdate: string = "";
 
-    // gModel add note
-    noteApprenant!: number;
+  // gModel add note
+  noteApprenant!: number;
 
   evaluations = [
     {
@@ -77,15 +77,14 @@ export class GestionEvaluationComponent implements OnInit {
       localStorage.setItem('evaluations', JSON.stringify(this.evaluations));
 
       this.currentEvaluation = {
-
-          id: null,
-          date: "",
-          type: "",
-          matiereId: null,
-          classeId: null,
-          professeurId: null,
-          etat: "",
-          semestre: null
+        id: null,
+        date: "",
+        type: "",
+        matiereId: null,
+        classeId: null,
+        professeurId: null,
+        etat: "",
+        semestre: null
       }
     }
 
@@ -113,12 +112,12 @@ export class GestionEvaluationComponent implements OnInit {
 
     // console.log(this.currentEvaluation);
 
-     // ngModel update
-     this.dateUpdate = this.currentEvaluation.date;
-     this.typeUpdate = this.currentEvaluation.type;
-     this.semetreUpdate = this.currentEvaluation.semestre;
-     this.classeUpdate = this.currentEvaluation.classeId;
-     this.matiereUpdate = this.currentEvaluation.matiereId;
+    // ngModel update
+    this.dateUpdate = this.currentEvaluation.date;
+    this.typeUpdate = this.currentEvaluation.type;
+    this.semetreUpdate = this.currentEvaluation.semestre;
+    this.classeUpdate = this.currentEvaluation.classeId;
+    this.matiereUpdate = this.currentEvaluation.matiereId;
   }
 
   onChangeEtatEvaluation(id?: number) {
@@ -211,12 +210,32 @@ export class GestionEvaluationComponent implements OnInit {
     });
   }
 
-  onFindApprenantByClasse(id: number){
+  onFindApprenantByClasse(id: number) {
     const apprenant = this.users.filter((user: any) => user.role === 'apprenant');
     this.apprenantByClasse = apprenant.filter((elt: any) => elt.classeId == id);
-    
+
     console.log(this.apprenantByClasse);
   }
+
+  onAddNote() {
+    for (let i = 0; i < this.apprenantByClasse.length; i++) {
+      if (!this.apprenantByClasse[i].Notes.length) {
+        const n = {
+          idEvaluation: 1,
+          note: this.apprenantByClasse[i].note
+        }
+
+        this.apprenantByClasse[i].Notes.push(n);
+      }else{
+        this.apprenantByClasse[i].Notes[0].note=this.apprenantByClasse[i].note
+      }
+
+    }
+    console.log(this.apprenantByClasse);
+    localStorage.setItem('users', JSON.stringify(this.users))
+    console.log(this.apprenantByClasse);
+  }
+
 
   // onEvaluationDatePassed(id?: number){
   //   this.currentEvaluation = this.evaluationDb.find((elt: any) => elt.id === id);

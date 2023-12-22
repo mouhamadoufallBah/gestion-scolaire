@@ -10,6 +10,8 @@ export class AcceuilComponent implements OnInit {
   apprenants: any;
   notes: any;
 
+  matieres:any;
+
 
   evaluationDetails: any[] = [];
   ngOnInit(): void {
@@ -32,7 +34,8 @@ export class AcceuilComponent implements OnInit {
         evaluation: evaluationDetail
       });
     });
-    console.log(this.evaluationDetails)
+
+    this.matieres = JSON.parse(localStorage.getItem("matieres") || "")
   }
 
 

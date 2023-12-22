@@ -79,12 +79,7 @@ export class AuthentificationComponent implements OnInit {
       role: "apprenant",
       etat: "active",
       classeId: 1,
-      Notes: [
-        {
-          idEvaluation: 1,
-          note: 15
-        }
-      ]
+      Notes: []
     },
     {
       id: Math.floor(Math.random() * 10000),
@@ -95,12 +90,7 @@ export class AuthentificationComponent implements OnInit {
       role: "apprenant",
       etat: "active",
       classeId: 2,
-      Notes: [
-        {
-          idEvaluation: 1,
-          note: 15
-        }
-      ]
+      Notes: []
     },
     {
       id: Math.floor(Math.random() * 10000),
@@ -111,12 +101,7 @@ export class AuthentificationComponent implements OnInit {
       role: "apprenant",
       etat: "active",
       classeId: 3,
-      Notes: [
-        {
-          idEvaluation: 1,
-          note: 15
-        }
-      ]
+      Notes: []
     },
   ];
 
