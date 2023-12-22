@@ -1,0 +1,29 @@
+
+<div class="body">
+  <div class="conatinerLogin">
+    <div class="loginImage">
+<!-- Ndiaga -->
+    </div>
+    <div class="loginForm">
+      <div class="loginFormContainer">
+        <div class="loginFormLogo">
+          <img src="assets/logo.png" alt="">
+          <p class="mt-4 text-center">Se connecter</p>
+        </div>
+        <form class="mt-4">
+          <div class="mb-3 inputContainer form-floating">
+            <input type="email" class="form-control h-100" id="inputEmail" aria-describedby="emailHelp"
+              placeholder="Email address" [(ngModel)] = "emailInput" [ngModelOptions]="{standalone: true}" >
+              <label for="inputEmail">Addresse mail</label>
+          </div>
+          <div class="mb-3 inputContainer form-floating">
+            <input type="password" class="form-control h-100" id="inputPassword" placeholder="****************"
+            [(ngModel)] = "passwordInput" name="password">
+            <label for="inputPassword">Mot de passe</label>
+          </div>
+          <button type="button" class="btn btn-dark col-12 buttonSubmit mb-3" (click)="login()">Login</button>
+        </form>
+      </div>
+    </div>
+  </div>
+

@@ -1,0 +1,162 @@
+<div class="pagetitle">
+  <h1>Tableau de bord</h1>
+  <nav>
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><a href="index.html">Acceuil</a></li>
+    </ol>
+  </nav>
+</div><!-- End Page Title -->
+
+<section class="section dashboard">
+  <div class="row">
+
+    <!-- Left side columns -->
+    <div class="col-lg-8">
+      <div class="row">
+
+        <!-- Sales Card -->
+        <div class="col-xxl-4 col-md-6">
+          <div class="card info-card sales-card">
+
+            <div class="card-body">
+              <h5 class="card-title">Nombres de classes</h5>
+
+              <div class="d-flex align-items-center">
+                <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                  <i class="ri-store-3-line"></i>
+                </div>
+                <div class="ps-3">
+                  <h6>{{ classes.length }}</h6>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div><!-- End Sales Card -->
+
+          <!-- Customers Card -->
+          <div class="col-xxl-4 col-xl-12">
+
+            <div class="card info-card customers-card">
+
+              <div class="card-body">
+                <h5 class="card-title">Nombre de apprenants</h5>
+
+                <div class="d-flex align-items-center">
+                  <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                    <i class="bi bi-people"></i>
+                  </div>
+                  <div class="ps-3">
+                    <h6>{{ apprenants.length }}</h6>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+
+          </div><!-- End Customers Card -->
+
+        <!-- Customers Card -->
+        <div class="col-xxl-4 col-xl-12">
+
+          <div class="card info-card customers-card">
+
+            <div class="card-body">
+              <h5 class="card-title">Nombre de professeurs</h5>
+
+              <div class="d-flex align-items-center">
+                <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                  <i class="bi bi-people"></i>
+                </div>
+                <div class="ps-3">
+                  <h6>{{ professeurs.length }}</h6>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+        </div><!-- End Customers Card -->
+
+
+
+        <!-- Recent Sales -->
+        <div class="col-12">
+          <div class="card recent-sales">
+
+            <div class="card-body">
+              <h5 class="card-title">Les apprenant inscrit recement</h5>
+
+              <table class="table table-borderless datatable">
+                <thead>
+                  <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Nom</th>
+                    <th scope="col">Prenom</th>
+                    <th scope="col">Email</th>
+                    <th scope="col">Etat</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let a of apprenants">
+                    <th scope="row">{{ a.id }}</th>
+                    <td>{{ a.nom }}</td>
+                    <td>{{ a.prenom }}</td>
+                    <td>{{ a.email }}</td>
+                    <td class="text-center">
+                      <span class="badge bg-success" *ngIf="a.etat=='active' " >{{ a.etat }}</span>
+                      <span class="badge bg-danger" *ngIf="a.etat=='desactive' " >{{ a.etat }}</span>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+
+            </div>
+
+          </div>
+        </div><!-- End Recent Sales -->
+
+
+      </div>
+    </div><!-- End Left side columns -->
+
+    <!-- Right side columns -->
+    <div class="col-lg-4">
+
+      <!-- Recent Activity -->
+      <div class="card">
+
+        <div class="card-body">
+          <h5 class="card-title">Les professeur ajoutés recement</h5>
+
+          <table class="table table-borderless datatable">
+            <thead>
+              <tr>
+                <th scope="col">#</th>
+                <th scope="col">Nom</th>
+                <th scope="col">Prenom</th>
+                <th scope="col">Email</th>
+                <th scope="col">Etat</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let p of professeurs">
+                <th scope="row">{{ p.id }}</th>
+                <td>{{ p.nom }}</td>
+                <td>{{ p.prenom }}</td>
+                <td>{{ p.email }}</td>
+                <td class="text-center">
+                  <span class="badge bg-success" *ngIf="p.etat=='active' " >{{ p.etat }}</span>
+                  <span class="badge bg-danger" *ngIf="p.etat=='desactive' " >{{ p.etat }}</span>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+
+        </div>
+      </div><!-- End Recent Activity -->
+
+    </div><!-- End Right side columns -->
+
+  </div>
+</section>

@@ -1,0 +1,243 @@
+<div class="pagetitle">
+  <h1>La liste des évaluation</h1>
+  <nav>
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><a href="index.html">Tableau de bord</a></li>
+      <li class="breadcrumb-item">Gestion des évaluation</li>
+    </ol>
+  </nav>
+</div><!-- End Page Title -->
+
+
+<section class="section">
+  <!-- Button ajouter classe modal -->
+  <button type="button" class="btn btn-primary mb-3" data-bs-toggle="modal" data-bs-target="#ajoutEvaluation">
+    Ajouter une évaluation
+  </button>
+  <div class="row">
+    <div class="col-lg-12">
+
+      <div class="card">
+        <div class="card-body">
+
+          <table class="table">
+            <thead>
+              <tr>
+                <th scope="col" class="text-center">#</th>
+                <th scope="col" class="text-center">Date</th>
+                <th scope="col" class="text-center">Type</th>
+                <th scope="col" class="text-center">Matiere</th>
+                <th scope="col" class="text-center">Classe</th>
+                <th scope="col" class="text-center">Semestre</th>
+                <th scope="col" class="text-center">Etat</th>
+                <th scope="col" class="text-center">Action</th>
+
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let item of evaluationByProf">
+                <td class="text-center" scope="row">{{ item.id }}</td>
+                <td class="text-center">{{ item.date | date:'dd/MM/YYYY' }}</td>
+                <td class="text-center">{{ item.type }}</td>
+                <td class="text-center">{{ item.matiereId | matiereIdToMatiereName:matieresDb }}</td>
+                <td class="text-center">{{ item.classeId | classeIdToClassname:classesDb }}</td>
+                <td class="text-center">{{ item.semestre }}</td>
+                <td class="text-center">
+                  <span class="badge bg-success" *ngIf="item.etat=='Fait' ">{{ item.etat }}</span>
+                  <span class="badge bg-warning text-dark" *ngIf="item.etat=='En cours' " style="cursor: pointer;"
+                    (click)="onChangeEtatEvaluation(item.id)">{{ item.etat }}</span>
+                  <span class="badge bg-danger" *ngIf="item.etat=='Reporté' " style="cursor: pointer;"
+                    (click)="onChangeEtatEvaluation(item.id)">{{ item.etat }}</span>
+                </td>
+                <td class="text-center">
+                  <button class="btn  btn-sm btn-warning me-2" data-bs-toggle="modal" data-bs-target="#noteEvaluation"
+                    *ngIf="item.etat=='Fait' " (click)="onFindApprenantByClasse(item.classeId)">Note</button>
+                  <button class="btn  btn-sm btn-warning me-2" data-bs-toggle="modal"
+                    data-bs-target="#modifierEvaluation" *ngIf="item.etat!='Fait' "
+                    (click)="onCurrentEvaluation(item.id)">Modifier</button>
+                  <button class="btn  btn-sm btn-danger me-2" *ngIf="item.etat!='Fait' " (click)="onDeleteEvaluation(item.id)">Supprimer</button>
+                </td>
+              </tr>
+
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+<!-- Modal ajouter apprenant-->
+<div class="modal fade" id="ajoutEvaluation" tabindex="-1" aria-labelledby="ajoutEvaluationLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="ajoutEvaluationLabel">Ajouter Evaluation</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+
+        <form class="row g-3">
+          <div class="col-md-6">
+            <div class="form-floating">
+              <input type="date" class="form-control" id="dateAdd" name="dateAdd" placeholder="Date de l'evaluation"
+                [(ngModel)]="dateAdd">
+              <label for="dateAdd">Date</label>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="form-floating mb-3">
+              <select class="form-select" id="typeAdd" name="typeAdd" aria-label="Floating label select example"
+                [(ngModel)]="typeAdd">
+                <option value="devoir">Devoir</option>
+                <option value="examen">Examen</option>
+              </select>
+              <label for="typeAdd">Séléctionner le type d'evaluation</label>
+            </div>
+          </div>
+          <div class="col-md-12">
+            <div class="form-floating mb-3">
+              <select class="form-select" id="semetreAdd" name="semetreAdd" aria-label="Floating label select example"
+                [(ngModel)]="semetreAdd">
+                <option value="Semestre 1">Semestre 1</option>
+                <option value="Semestre 2">Semestre 2</option>
+              </select>
+              <label for="semetreAdd">Séléctionner la semestre</label>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="form-floating mb-3">
+              <select class="form-select" id="classeAdd" name="classeAdd" aria-label="Floating label select example"
+                [(ngModel)]="classeAdd">
+                <option *ngFor="let item of userOnline.classesId" [ngValue]="item">
+                  {{item | classeIdToClassname:classesDb}}
+                </option>
+              </select>
+              <label for="classeAdd">Séléctionner la classe</label>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="form-floating mb-3">
+              <select class="form-select" id="matiereAdd" name="matiereAdd" aria-label="Floating label select example"
+                [(ngModel)]="matiereAdd">
+                <option *ngFor="let item of userOnline.matieres" [ngValue]="item">
+                  {{item | matiereIdToMatiereName:matieresDb}}
+                </option>
+              </select>
+              <label for="matiereAdd">Séléctionner la Matière</label>
+            </div>
+          </div>
+        </form>
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">annuler</button>
+        <button type="button" class="btn btn-primary" data-bs-dismiss="modal"
+          (click)="onAddEvaluation()">Ajouter</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal modifier apprenant-->
+<div class="modal fade" id="modifierEvaluation" tabindex="-1" aria-labelledby="modifierEvaluationLabel"
+  aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="modifierEvaluationLabel">Modifier Evaluation</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+
+        <form class="row g-3">
+          <div class="col-md-6">
+            <div class="form-floating">
+              <input type="date" class="form-control" id="dateUpdate" name="dateUpdate"
+                placeholder="Date de l'evaluation" [(ngModel)]="dateUpdate">
+              <label for="dateUpdate">Date</label>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="form-floating mb-3">
+              <select class="form-select" id="typeUpdate" name="typeUpdate" aria-label="Floating label select example"
+                [(ngModel)]="typeUpdate">
+                <option value="devoir">Devoir</option>
+                <option value="examen">Examen</option>
+              </select>
+              <label for="typeUpdate">Séléctionner le type d'evaluation</label>
+            </div>
+          </div>
+          <div class="col-md-12">
+            <div class="form-floating mb-3">
+              <select class="form-select" id="semetreUpdate" name="semetreUpdate"
+                aria-label="Floating label select example" [(ngModel)]="semetreUpdate">
+                <option value="Semestre 1">Semestre 1</option>
+                <option value="Semestre 2">Semestre 2</option>
+              </select>
+              <label for="semetreUpdate">Séléctionner la semestre</label>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="form-floating mb-3">
+              <select class="form-select" id="classeUpdate" name="classeUpdate"
+                aria-label="Floating label select example" [(ngModel)]="classeUpdate">
+                <option *ngFor="let item of userOnline.classesId" [ngValue]="item">
+                  {{item | classeIdToClassname:classesDb}}
+                </option>
+              </select>
+              <label for="classeUpdate">Séléctionner la classe</label>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="form-floating mb-3">
+              <select class="form-select" id="matiereUpdate" name="matiereUpdate"
+                aria-label="Floating label select example" [(ngModel)]="matiereUpdate">
+                <option *ngFor="let item of userOnline.matieres" [ngValue]="item">
+                  {{item | matiereIdToMatiereName:matieresDb}}
+                </option>
+              </select>
+              <label for="matiereUpdate">Séléctionner la Matière</label>
+            </div>
+          </div>
+        </form>
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">annuler</button>
+        <button type="button" class="btn btn-primary" data-bs-dismiss="modal"
+          (click)="onUpdateEvaluation()">Modifier</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal modifier apprenant-->
+<div class="modal fade" id="noteEvaluation" tabindex="-1" aria-labelledby="noteEvaluationLabel"
+  aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="noteEvaluationLabel">Note de l'evaluation</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div class="row g-3" *ngFor="let item of apprenantByClasse">
+          <div class="col-md-6">
+            <h5>{{ item.prenom + " " + item.nom }}</h5>
+          </div>
+          <div class="col-md-6">
+            <input type="text" [(ngModel)]="noteApprenant" value="{{ item.Notes }}">
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">annuler</button>
+        <button type="button" class="btn btn-primary" data-bs-dismiss="modal"
+          (click)="onUpdateEvaluation()">Modifier</button>
+      </div>
+    </div>
+  </div>
+</div>

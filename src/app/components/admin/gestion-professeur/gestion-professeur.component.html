@@ -1,0 +1,266 @@
+<div class="pagetitle">
+  <h1>La liste des professeurs</h1>
+  <nav>
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><a href="index.html">Tableau de bord</a></li>
+      <li class="breadcrumb-item">Gestion des professeurs</li>
+    </ol>
+  </nav>
+</div><!-- End Page Title -->
+
+
+<section class="section">
+  <!-- Button ajouter classe modal -->
+  <button type="button" class="btn btn-primary mb-3" data-bs-toggle="modal" data-bs-target="#ajoutProfesseur">
+    ajouter professeur
+  </button>
+  <div class="row">
+    <div class="col-lg-12">
+
+      <div class="card">
+        <div class="card-body">
+
+          <table class="table">
+            <thead>
+              <tr>
+                <th scope="col" class="text-center">#</th>
+                <th scope="col" class="text-center">Nom</th>
+                <th scope="col" class="text-center">Prenom</th>
+                <th scope="col" class="text-center">Email</th>
+                <th scope="col" class="text-center">Etat</th>
+                <th scope="col" class="text-center">Action</th>
+
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let item of professeurs">
+                <td class="text-center" scope="row">{{ item.id }}</td>
+                <td class="text-center">{{ item.nom }}</td>
+                <td class="text-center">{{ item.prenom }}</td>
+                <td class="text-center">{{ item.email }}</td>
+                <td class="text-center">
+                  <span class="badge bg-success" *ngIf="item.etat=='active' " (click)="desactiveFormateur(item.id)"
+                    style="cursor: pointer;">{{ item.etat }}</span>
+                  <span class="badge bg-danger" *ngIf="item.etat=='desactive' " (click)="desactiveFormateur(item.id)"
+                    style="cursor: pointer;">{{ item.etat }}</span>
+                </td>
+                <td class="text-center">
+                  <button class="btn  btn-sm btn-warning me-2" data-bs-toggle="modal" data-bs-target="#detailProfesseur"
+                    (click)="onCurrentProffeseur(item.id)">Detail</button>
+                  <button class="btn  btn-sm btn-warning me-2" data-bs-toggle="modal"
+                    data-bs-target="#modifierProfesseur" (click)="onCurrentProffeseur(item.id)">Modifier</button>
+                  <button class="btn  btn-sm btn-danger me-2" (click)="onDeleteProfesseur(item.id)">Supprimer</button>
+                </td>
+              </tr>
+
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+<!-- Modal ajouter professeur-->
+<div class="modal fade" id="ajoutProfesseur" tabindex="-1" aria-labelledby="ajoutProfesseurLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="ajoutProfesseurLabel">Ajouter apprenant</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+
+        <form class="row g-3">
+          <div class="col-md-6">
+            <div class="form-floating">
+              <input type="text" class="form-control" id="prenomAdd" name="prenomAdd" placeholder="Votre Prénom"
+                [(ngModel)]="prenomAdd">
+              <label for="prenomAdd">Votre Prénom</label>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="form-floating">
+              <input type="text" class="form-control" id="nomAdd" name="nomAdd" placeholder="Password"
+                [(ngModel)]="nomAdd">
+              <label for="nomAdd">Votre Nom</label>
+            </div>
+          </div>
+          <div class="col-md-12">
+            <div class="form-floating">
+              <input type="email" class="form-control" id="emailAdd" name="emailAdd" placeholder="Your Name"
+                [(ngModel)]="emailAdd">
+              <label for="emailAdd">Votre email</label>
+            </div>
+          </div>
+          <div class="mb-3 col-md-6">
+            <select class="form-select" id="classeAdd" name="classeAdd" aria-label="Floating label select example"
+              [(ngModel)]="classeAdd" multiple>
+              <option value="">Veuillez selectioner une classe</option>
+              <option *ngFor="let classe of classesDb" [ngValue]="classe.id">
+                {{classe.nom}}
+              </option>
+            </select>
+          </div>
+          <div class="mb-3 col-md-6">
+            <select class="form-select" id="matiereAdd" name="matiereAdd" aria-label=" label select example"
+              [(ngModel)]="matiereAdd" multiple>
+              <option value="">Veuillez selectioner une matières</option>
+              <option *ngFor="let matiere of matiereDb" [ngValue]="matiere.id">
+                {{matiere.nom}}
+              </option>
+            </select>
+          </div>
+        </form>
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">annuler</button>
+        <button type="button" class="btn btn-primary" data-bs-dismiss="modal"
+          (click)="onAddProfesseur()">Ajouter</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal detail professeur-->
+<div class="modal fade" id="detailProfesseur" tabindex="-1" aria-labelledby="detailProfesseurLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="detailProfesseurLabel">Detail apprenant</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body modalContent">
+        <div class="modalContentTop">
+          <div class="modalContentTopImage" style="
+              background-image: url('https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');
+              background-position: center;
+              background-size: cover;
+              border-radius: 8px;
+            "></div>
+          <div class="modalContentTopDescription">
+            <span class="fs-5 fw-bold">Nom</span>
+            <p>
+              {{ currentProfesseur.nom }}
+            </p>
+            <span class="fs-5 fw-bold">Prenom</span>
+            <p>
+              {{ currentProfesseur.prenom }}
+            </p>
+            <span class="fs-5 fw-bold">Email</span>
+            <p>
+              {{ currentProfesseur.email }}
+            </p>
+          </div>
+        </div>
+        <div class="modalContentBottom">
+          <div class="modalContentBottomItems">
+            <span class="fs-5 fw-bold">Classe</span>
+            <div>
+              <ul style=" padding: 0 !important;">
+                <div *ngIf="currentProfesseur.classeId.length>0">
+                  <li *ngFor="let classe of currentProfesseur.classeId" class="list-unstyled">
+                    {{ classe | classeIdToClassname:classesDb }}
+                  </li>
+                </div>
+                <div class="list-unstyled" *ngIf="currentProfesseur.classeId.length==0">
+                  <li>Néant</li>
+                </div>
+              </ul>
+            </div>
+          </div>
+          <div class="modalContentBottomItems">
+            <span class="fs-5 fw-bold">Matieres</span>
+            <div>
+              <ul style=" padding: 0 !important;">
+                <div *ngIf="currentProfesseur.matieres.length>0">
+                  <li *ngFor="let matiere of currentProfesseur.matieres" class="list-unstyled">
+                    {{ matiere | matiereIdToMatiereName:matiereDb }}
+                  </li>
+                </div>
+                <div class="list-unstyled" *ngIf="currentProfesseur.matieres.length==0">
+                  <li>Néant</li>
+                </div>
+              </ul>
+            </div>
+          </div>
+          <div class="modalContentBottomItems">
+            <span class="fs-5 fw-bold">Etat</span>
+            <p>
+              {{ currentProfesseur.etat }}
+            </p>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer d-flex justify-content-center">
+        <button type="button" class="btn btn-secondary w-25" data-bs-dismiss="modal">
+          Fermer
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal modifier professeur-->
+<div class="modal fade" id="modifierProfesseur" tabindex="-1" aria-labelledby="modifierProfesseurLabel"
+  aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="modifierProfesseurLabel">Modifier professeur</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form class="row g-3">
+          <div class="col-md-6">
+            <div class="form-floating">
+              <input type="text" class="form-control" id="prenomUpdate" name="prenomUpdate" placeholder="Votre Prénom"
+                [(ngModel)]="prenomUpdate">
+              <label for="prenomUpdate">Votre Prénom</label>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="form-floating">
+              <input type="text" class="form-control" id="nomUpdate" name="nomUpdate" placeholder="Password"
+                [(ngModel)]="nomUpdate">
+              <label for="nomUpdate">Votre Nom</label>
+            </div>
+          </div>
+          <div class="col-md-12">
+            <div class="form-floating">
+              <input type="email" class="form-control" id="emailUpdate" name="emailUpdate" placeholder="Your Name"
+                [(ngModel)]="emailUpdate">
+              <label for="emailUpdate">Votre email</label>
+            </div>
+          </div>
+          <div class="mb-3 col-md-6">
+            <select class="form-select" id="classeUpdate" name="classeUpdate" aria-label="Floating label select example"
+              [(ngModel)]="classeUpdate" multiple>
+              <option value="">Veuillez selectioner une classe</option>
+              <option *ngFor="let classe of classesDb" [ngValue]="classe.id">
+                {{classe.nom}}
+              </option>
+            </select>
+          </div>
+          <div class=" mb-3 col-md-6">
+            <select class="form-select" id="matiereUpdate" name="matiereUpdate" aria-label=" label select example"
+              [(ngModel)]="matiereUpdate" multiple>
+              <option value="">Veuillez selectioner une matières</option>
+              <option *ngFor="let matiere of matiereDb" [ngValue]="matiere.id">
+                {{matiere.nom}}
+              </option>
+            </select>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">annuler</button>
+        <button type="button" class="btn btn-primary" data-bs-dismiss="modal"
+          (click)="onUpdateProfesseur()">Modifier</button>
+      </div>
+    </div>
+  </div>
+</div>

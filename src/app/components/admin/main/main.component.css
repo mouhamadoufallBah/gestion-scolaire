@@ -1,0 +1,6 @@
+.mainContent{
+  height: 100vh;
+  /* border: 1px solid red; */
+  display: grid;
+  grid-template-rows: 2% 90% 8%;
+}

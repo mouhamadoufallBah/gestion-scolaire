@@ -1,0 +1,20 @@
+.modalContent{
+  height: 300px;
+  overflow: scroll;
+  display: grid;
+  grid-template-rows: 83% 15%;
+  gap: 2%;
+}
+
+.modalContent .modalContentTop{
+  height: 100%;
+  display: grid;
+  grid-template-columns: 48% 48%;
+  gap: 4%;
+}
+
+.modalContentBottom{
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 3%;
+}
