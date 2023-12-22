@@ -234,7 +234,7 @@ export class AuthentificationComponent implements OnInit {
             this.route.navigate(['/', 'professeur-dashboard']);
             this.messageService.showMessage('success', 'Bienvenue Cher(e)'+ this.findUser.nom);
           }else{
-            this.route.navigate(['/', 'acceuil']);
+            this.route.navigate(['/', 'apprenant-acceuil']);
             this.messageService.showMessage('success', 'Bienvenue Cher(e)'+ this.findUser.nom);
           }
 

@@ -8,7 +8,8 @@ const routes: Routes = [
   {path: 'acceuil', component: AcceuilComponent},
   { path: 'admin-dashboard', loadChildren: () => import('./components/admin/admin.module').then(m => m.AdminModule) },
   { path: 'professeur-dashboard', loadChildren: () => import('./components/professeur/professeur.module').then(m => m.ProfesseurModule) },
-  { path: '',  redirectTo: 'authentification', pathMatch: 'full'}
+  { path: 'apprenant-acceuil', loadChildren: () => import('./components/apprenant/apprenant.module').then(m => m.ApprenantModule) },
+  { path: '',  redirectTo: 'authentification', pathMatch: 'full'},
 ];
 
 @NgModule({

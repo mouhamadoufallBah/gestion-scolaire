@@ -1,0 +1,16 @@
+{
+  "hosting": {
+    "public": "dist/gestion-note",
+    "ignore": [
+      "firebase.json",
+      "**/.*",
+      "**/node_modules/**"
+    ],
+    "rewrites": [
+      {
+        "source": "**",
+        "destination": "/index.html"
+      }
+    ]
+  }
+}
