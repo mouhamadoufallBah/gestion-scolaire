@@ -214,7 +214,7 @@
   </div>
 </div>
 
-<!-- Modal modifier apprenant-->
+<!-- Modal modifier Note-->
 <div class="modal fade" id="noteEvaluation" tabindex="-1" aria-labelledby="noteEvaluationLabel"
   aria-hidden="true">
   <div class="modal-dialog">
@@ -224,7 +224,7 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        <div class="row g-3" *ngFor="let item of apprenantByClasse">
+        <div class="row g-3" *ngFor="let item of apprenantByClasse", let i = index>
           <div class="col-md-6">
             <h5>{{ item.prenom + " " + item.nom }}</h5>
           </div>
