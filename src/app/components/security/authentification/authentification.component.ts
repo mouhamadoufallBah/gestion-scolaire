@@ -33,77 +33,9 @@ export class AuthentificationComponent implements OnInit {
     }
   ];
 
-  professeurs = [
-    {
-      id: Math.floor(Math.random() * 10000),
-      nom: "Prof",
-      prenom: "Prof",
-      email: "prof@example.com",
-      password: "prof123",
-      role: "professeur",
-      etat: "active",
-      classesId: [1],
-      matieres: [1]
-    },
-    {
-      id: Math.floor(Math.random() * 10000),
-      nom: "Prof2",
-      prenom: "Prof2",
-      email: "prof2@example.com",
-      password: "prof123",
-      role: "professeur",
-      etat: "active",
-      classesId: [1],
-      matieres: [1]
-    },
-    {
-      id: Math.floor(Math.random() * 10000),
-      nom: "Prof3",
-      prenom: "Prof3",
-      email: "prof3@example.com",
-      password: "prof123",
-      role: "professeur",
-      etat: "active",
-      classesId: [1],
-      matieres: [1]
-    },
-  ];
+  professeurs = [];
 
-  apprenants = [
-    {
-      id: Math.floor(Math.random() * 10000),
-      nom: "Apprenant",
-      prenom: "Apprenant",
-      email: "apprenant@example.com",
-      password: "apprenant123",
-      role: "apprenant",
-      etat: "active",
-      classeId: 1,
-      Notes: []
-    },
-    {
-      id: Math.floor(Math.random() * 10000),
-      nom: "Apprenant3",
-      prenom: "Apprenant3",
-      email: "apprenant3@example.com",
-      password: "apprenant123",
-      role: "apprenant",
-      etat: "active",
-      classeId: 2,
-      Notes: []
-    },
-    {
-      id: Math.floor(Math.random() * 10000),
-      nom: "Apprenant3",
-      prenom: "Apprenant3",
-      email: "apprenant3@example.com",
-      password: "apprenant123",
-      role: "apprenant",
-      etat: "active",
-      classeId: 3,
-      Notes: []
-    },
-  ];
+  apprenants = [];
 
   // classes = [
   //   {
@@ -200,6 +132,7 @@ export class AuthentificationComponent implements OnInit {
   }
 
   login() {
+    const userList = JSON.parse(localStorage.getItem('users') || "");
     // Si les champs sont vide on affiche une message d'erreur❌
     // Sinon on essaye de trouver le user correspondant✅
     if (this.emailInput == "" || this.passwordInput == "") {
@@ -207,7 +140,7 @@ export class AuthentificationComponent implements OnInit {
     } else {
 
       //On essaye de recuperer le user qui a le mail siasie
-      this.findUser = this.users.find((element: any) => element.email == this.emailInput);
+      this.findUser = userList.find((element: any) => element.email == this.emailInput);
       //on verifie si notre variable à trouver un objet correspondant
       if (this.findUser) {
         //On verifie si le mot de passe est bon

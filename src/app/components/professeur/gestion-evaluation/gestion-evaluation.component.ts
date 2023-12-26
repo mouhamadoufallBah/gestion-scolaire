@@ -37,38 +37,7 @@ export class GestionEvaluationComponent implements OnInit {
   // gModel add note
   noteApprenant!: number;
 
-  evaluations = [
-    {
-      id: 1,
-      date: "10/12/2023",
-      type: "Evaluation",
-      matiereId: 1,
-      classeId: 2,
-      professeurId: 2422,
-      etat: "Fait",
-      semestre: 1
-    },
-    {
-      id: 2,
-      date: "10/12/2023",
-      type: "Evaluation",
-      matiereId: 3,
-      classeId: 2,
-      professeurId: 2422,
-      etat: "En cours",
-      semestre: 1
-    },
-    {
-      id: 3,
-      date: "10/12/2023",
-      type: "Evaluation",
-      matiereId: 1,
-      classeId: 3,
-      professeurId: 2422,
-      etat: "Reporté",
-      semestre: 1
-    },
-  ];
+  evaluations = [];
 
   constructor(private messageService: MessageService) { }
 
@@ -100,6 +69,8 @@ export class GestionEvaluationComponent implements OnInit {
     this.matieresDb = JSON.parse(localStorage.getItem('matieres') || "");
 
     this.loadAllEvaluationByCurrentProf();
+
+    this.updateEvaluationStates();
   }
 
   loadAllEvaluationByCurrentProf() {
@@ -237,17 +208,23 @@ export class GestionEvaluationComponent implements OnInit {
   }
 
 
-  // onEvaluationDatePassed(id?: number){
-  //   this.currentEvaluation = this.evaluationDb.find((elt: any) => elt.id === id);
-  //   const dateActuelle = new Date().getFullYear();
-  //   console.log(dateActuelle);
-  //   if(this.currentEvaluation.date > dateActuelle && this.currentEvaluation.date != "Reporté"){
-  //     this.currentEvaluation.etat = "Fait";
-  //   }
+  updateEvaluationStates() {
+    const currentDate = new Date();
 
-  //   localStorage.setItem('evaluations', JSON.stringify(this.evaluationDb));
+    this.evaluationByProf.forEach((item: any) => {
+      const evaluationDate = new Date(item.date);
 
-  // }
+      // Vérifier si la date de l'évaluation est dans le passé
+      if (evaluationDate < currentDate && item.etat !== 'Fait' && item.etat != "Reporté") {
+        item.etat = 'Fait';
+
+        // Mettre à jour le tableau dans le stockage local
+        localStorage.setItem('evaluations', JSON.stringify(this.evaluationByProf));
+      }
+    });
+
+    this.loadAllEvaluationByCurrentProf();
+  }
 
 
 

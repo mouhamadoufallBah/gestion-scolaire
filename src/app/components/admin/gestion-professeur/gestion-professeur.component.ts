@@ -30,19 +30,6 @@ export class GestionProfesseurComponent implements OnInit {
   classeUpdate:  number[] = [];
   matiereUpdate: number[] = [];
 
-
-  // {
-  //   id: Math.floor(Math.random() * 10000),
-  //   nom: "Prof3",
-  //   prenom: "Prof3",
-  //   email: "prof3@example.com",
-  //   password: "prof123",
-  //   role: "professeur",
-  //   etat: "active",
-  //   classesId: [1],
-  //   matieres: [1]
-  // }
-
   constructor(private messageService: MessageService) { }
 
   ngOnInit(): void {

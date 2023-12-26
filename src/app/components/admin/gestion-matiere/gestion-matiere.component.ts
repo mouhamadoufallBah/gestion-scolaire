@@ -9,23 +9,7 @@ import Swal from 'sweetalert2';
 })
 export class GestionMatiereComponent {
 
-  matieres = [
-    {
-      id: 1,
-      nom: "Math",
-      description: "aze"
-    },
-    {
-      id: 2,
-      nom: "Svt",
-      description: "aze"
-    },
-    {
-      id: 3,
-      nom: "Pc",
-      description: "aze"
-    },
-  ];
+  matieres = [];
 
   //ngModelAdd
   nomMatiereAdd: string = "";

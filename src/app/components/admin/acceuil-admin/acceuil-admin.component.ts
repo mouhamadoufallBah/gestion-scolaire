@@ -13,29 +13,7 @@ export class AcceuilAdminComponent implements OnInit{
   professeurs:any;
 
 
-  evaluations = [
-    {
-      id: 1,
-      date: "10/12/2023",
-      type: "Evaluation",
-      matiereId: 1,
-      classeId: 2
-    },
-    {
-      id: 2,
-      date: "10/12/2023",
-      type: "Evaluation",
-      matiereId: 3,
-      classeId: 2
-    },
-    {
-      id: 3,
-      date: "10/12/2023",
-      type: "Evaluation",
-      matiereId: 1,
-      classeId: 3
-    },
-  ];
+  evaluations = [];
   ngOnInit(): void {
     if (localStorage.getItem('evaluations') == null || localStorage.getItem('evaluations') == undefined){
       localStorage.setItem('evaluations', JSON.stringify(this.evaluations));

@@ -21,7 +21,6 @@
                 <th scope="col" class="text-center">#</th>
                 <th scope="col" class="text-center">Nom</th>
                 <th scope="col" class="text-center">Année scolaire</th>
-                <th scope="col" class="text-center">Nombre d'apprenant</th>
                 <th scope="col" class="text-center">Action</th>
 
               </tr>
@@ -31,7 +30,6 @@
                 <td class="text-center" scope="row"><a href="#">{{ classe.id }}</a></td>
                 <td class="text-center">{{ classe.nom }}</td>
                 <td class="text-center">{{ classe.annescolaire }}</td>
-                <td class="text-center">{{ classe.apprenantId.length }}</td>
                 <td class="text-center">
                   <button class="btn  btn-sm btn-warning me-2" data-bs-toggle="modal" data-bs-target="#updateClasse" (click)="onCurrentClasse(classe.id)">Modifier</button>
                   <button class="btn  btn-sm btn-danger me-2" (click)="onRemoveClasse(classe.id)">Supprimer</button>

@@ -111,7 +111,7 @@
             <div class="form-floating mb-3">
               <select class="form-select" id="classeAdd" name="classeAdd" aria-label="Floating label select example"
                 [(ngModel)]="classeAdd">
-                <option *ngFor="let item of userOnline.classesId" [ngValue]="item">
+                <option *ngFor="let item of userOnline.classeId" [ngValue]="item">
                   {{item | classeIdToClassname:classesDb}}
                 </option>
               </select>
@@ -184,7 +184,7 @@
             <div class="form-floating mb-3">
               <select class="form-select" id="classeUpdate" name="classeUpdate"
                 aria-label="Floating label select example" [(ngModel)]="classeUpdate">
-                <option *ngFor="let item of userOnline.classesId" [ngValue]="item">
+                <option *ngFor="let item of userOnline.classeId" [ngValue]="item">
                   {{item | classeIdToClassname:classesDb}}
                 </option>
               </select>

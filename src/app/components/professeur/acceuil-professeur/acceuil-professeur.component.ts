@@ -21,7 +21,7 @@ export class AcceuilProfesseurComponent implements OnInit{
 
   ngOnInit(): void {
     this.users = JSON.parse(localStorage.getItem('users') || "");
- 
+
     this.professeurs = this.users.filter((user: any) => user.role === 'professeur');
 
     let userOnlineId = JSON.parse(localStorage.getItem('currentUser') || "");

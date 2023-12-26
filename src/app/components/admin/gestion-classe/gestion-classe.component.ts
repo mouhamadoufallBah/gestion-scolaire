@@ -9,26 +9,7 @@ import Swal from 'sweetalert2';
 })
 export class GestionClasseComponent implements OnInit {
 
-  classes = [
-    {
-      id: 1,
-      nom: "Seconde S",
-      annescolaire: "2023-2024",
-      apprenantId: [1]
-    },
-    {
-      id: 2,
-      nom: "Premiere S",
-      annescolaire: "2023-2024",
-      apprenantId: [2]
-    },
-    {
-      id: 3,
-      nom: "Terminale S",
-      annescolaire: "2023-2024",
-      apprenantId: [3]
-    },
-  ];
+  classes = [];
 
   //ngModelAdd
   nomClassAdd: string = "";
